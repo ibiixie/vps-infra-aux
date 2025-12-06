@@ -2,6 +2,7 @@ services:
   caddy:
     environment:
       DOMAIN: biixie.com
+      DOMAIN_PERSONAL: ${DOMAIN_PERSONAL}
       EMAIL: ${CADDY_EMAIL}
 
 volumes:

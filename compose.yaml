@@ -15,6 +15,36 @@ services:
       - caddy_config:/config
     networks:
       - proxy_net
+      - tunnel_net
+
+  wireguard:
+    image: lscr.io/linuxserver/wireguard:latest
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      # - SERVERURL=wireguard.domain.com #optional
+      # - SERVERPORT=51820 #optional
+      - PEERS=twinkcentre #optional
+      # - PEERDNS=auto #optional
+      # - INTERNAL_SUBNET=10.13.13.0 #optional
+      # - ALLOWEDIPS=0.0.0.0/0 #optional
+      - PERSISTENTKEEPALIVE_PEERS=all #optional
+      # - LOG_CONFS=true #optional
+    volumes:
+      - wireguard_config:/config
+      # - /lib/modules:/lib/modules #optional
+    ports:
+      - 51820:51820/udp
+    networks:
+      - tunnel_net
+    # sysctls:
+    #   - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
 
   whoami:
     image: traefik/whoami
@@ -27,7 +57,10 @@ services:
 volumes:
   caddy_data:
   caddy_config:
+  wireguard_config:
 
 networks:
   proxy_net:
     name: proxy_net
+  tunnel_net:
+    name: tunnel_net

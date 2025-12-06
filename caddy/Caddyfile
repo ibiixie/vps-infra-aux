@@ -10,6 +10,21 @@
 	}
 }
 
+{$DOMAIN_PERSONAL}:443 {
+	# Handle at endpoint instead
+	tls off
+	
+	route {
+		reverse_proxy wireguard:443
+	}
+}
+
+{$DOMAIN_PERSONAL}:80 {
+	route {
+		reverse_proxy wireguard:80
+	}
+}
+
 # WWW redirect
 www.{$DOMAIN:localhost} {
 	redir {scheme}://{$DOMAIN:localhost}{uri}
