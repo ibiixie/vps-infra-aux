@@ -19,10 +19,9 @@ www.{$DOMAIN:localhost} {
 {$DOMAIN_PERSONAL} {
 	tls {$EMAIL_PERSONAL}
 	
-	route {
-		# reverse_proxy wireguard:80
-		reverse_proxy whoami:80
-	}
+	# reverse_proxy wireguard:80
+	# reverse_proxy whoami:80
+	respond "Välkommen till klinden.se!" 418
 }
 
 # WWW redirect
