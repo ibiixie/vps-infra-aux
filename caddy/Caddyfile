@@ -19,8 +19,7 @@ www.{$DOMAIN:localhost} {
 	tls {$EMAIL_PERSONAL}
 
 	route {
-		reverse_proxy /whoami wireguard:51820
-		respond "Välkommen till klinden.se!"
+		reverse_proxy wireguard:51820
 	}
 }
 

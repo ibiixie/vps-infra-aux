@@ -1,22 +1,21 @@
 services:
-  # caddy:
-  #   build:
-  #     context: ./caddy
-  #     no_cache: true
-  #   restart: always
-  #   cap_add:
-  #     - NET_ADMIN
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #     - "443:443/udp"
-  #   volumes:
-  #     - caddy_data:/data
-  #     - caddy_config:/config
-  #   networks:
-  #     - proxy_net
-  #     - tunnel_net
-  #   network_mode: service:wireguard
+  caddy:
+    build:
+      context: ./caddy
+      no_cache: true
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    ports:
+    - "80:80"
+    - "443:443"
+    - "443:443/udp"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - proxy_net
+      - tunnel_net
 
   wireguard:
     image: lscr.io/linuxserver/wireguard:latest
@@ -36,15 +35,6 @@ services:
     networks:
       - tunnel_net
     restart: unless-stopped
-
-  whoami:
-    image: traefik/whoami
-    restart: always
-    command:
-      - --name=biixie
-    networks:
-      - proxy_net
-    network_mode: service:wireguard
 
 volumes:
   caddy_data:
