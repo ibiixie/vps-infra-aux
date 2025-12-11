@@ -14,16 +14,17 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v2
 
-      - name: Deploy Stack to Host
-        uses: ibiixie/stack-deploy-action@feature/multiple-compose-inputs
-        env:
-          CADDY_EMAIL: ${{ secrets.CADDY_EMAIL }}
-          CADDY_EMAIL_PERSONAL: ${{ secrets.CADDY_EMAIL_PERSONAL }}
-          DOMAIN_PERSONAL: ${{ secrets.DOMAIN_PERSONAL }}
+      - name: Deploy Stack
+        uses: cssnr/stack-deploy-action@v1
         with:
+          name: infra
+          file: compose.yaml compose.prod.yaml
           host: ${{ secrets.REMOTE_HOST }}
           user: ${{ secrets.REMOTE_USER }}
           ssh_key: ${{ secrets.REMOTE_PRIVATE_KEY }}
-          file: ./compose.yaml;./compose.prod.yaml
-          name: vps-infra
           mode: compose
+          args: --remove-orphans --force-recreate --build
+        env:
+          CADDY_EMAIL: ${{ secrets.CADDY_EMAIL }}
+          CADDY_EMAIL_PERSON: ${{ secrets.CADDY_EMAIL_PERSONAL }}
+          DOMAIN_PERSONAL: ${{ secrets.DOMAIN_PERSONAL }}
