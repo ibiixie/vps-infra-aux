@@ -17,7 +17,6 @@ services:
     networks:
       - proxy_net
       - tunnel_net
-    network_mode: host
 
   wireguard:
     image: lscr.io/linuxserver/wireguard:latest
@@ -34,9 +33,7 @@ services:
       - wireguard_config:/config
     ports:
       - 51820:51820/udp
-    networks:
-      - tunnel_net
-    network_mode: host
+    network_mode: service:caddy
     restart: unless-stopped
 
 volumes:
