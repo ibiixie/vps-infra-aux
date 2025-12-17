@@ -6,7 +6,7 @@ services:
     restart: always
     cap_add:
       - NET_ADMIN
-      - SYS_MODULES
+      - SYS_MODULE
     ports:
       - "80:80"
       - "443:443"
