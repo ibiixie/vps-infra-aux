@@ -25,6 +25,11 @@ services:
     environment:
       BIND: ":3000"
       TARGET: http://caddy:81
+      # POLICY_FNAME: "/data/cfg/botPolicy.yaml"
+      CHALLENGE: "fast"
+      DIFFICULTY: 4
+    # volumes:
+    #   - "./anubis/botPolicy.yaml:/data/cfg/botPolicy.yaml:ro"
     networks:
       - tunnel_net
       - proxy_net
