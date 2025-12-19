@@ -25,6 +25,7 @@ services:
     environment:
       BIND: ":3000"
       TARGET: http://caddy:81
+      DIFFICULTY: 16
     networks:
       - tunnel_net
       - proxy_net

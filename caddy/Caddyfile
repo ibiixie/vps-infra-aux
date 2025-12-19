@@ -27,7 +27,6 @@ www.{$DOMAIN:localhost} {
 
 # Actual website entrypoint
 http://{$DOMAIN_PERSONAL}:81 {
-	
 	route {
 		reverse_proxy 10.13.13.2:80
 	}
