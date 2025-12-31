@@ -3,24 +3,44 @@ bots:
 
 thresholds:
   - name: minimal-suspicion
+    expression: weight <= 0
     action: CHALLENGE
     challenge:
       algorithm: metarefresh
-      difficulty: 2
+      difficulty: 3
 
   - name: mild-suspicion
+    expression:
+      all:
+        - weight > 0
+        - weight < 10
+    action: CHALLENGE
+    challenge:
+      algorithm: fast
+      difficulty: 2
+
+  - name: moderate-suspicion
+    expression:
+      all:
+        - weight >= 10
+        - weight < 20
     action: CHALLENGE
     challenge:
       algorithm: fast
       difficulty: 4
 
-  - name: moderate-suspicion
+  - name: mild-proof-of-work
+    expression:
+      all:
+        - weight >= 20
+        - weight < 30
     action: CHALLENGE
     challenge:
       algorithm: fast
       difficulty: 6
 
   - name: extreme-suspicion
+    expression: weight >= 30
     action: CHALLENGE
     challenge:
       algorithm: fast
