@@ -1,2 +1,27 @@
 bots:
   - import: (data)/meta/default-config.yaml
+
+thresholds:
+  - name: minimal-suspicion
+    action: CHALLENGE
+    challenge:
+      algorithm: metarefresh
+      difficulty: 2
+
+  - name: mild-suspicion
+    action: CHALLENGE
+    challenge:
+      algorithm: fast
+      difficulty: 4
+
+  - name: moderate-suspicion
+    action: CHALLENGE
+    challenge:
+      algorithm: fast
+      difficulty: 6
+
+  - name: extreme-suspicion
+    action: CHALLENGE
+    challenge:
+      algorithm: fast
+      difficulty: 8
