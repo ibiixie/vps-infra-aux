@@ -16,7 +16,7 @@ www.{$DOMAIN:localhost} {
 }
 
 # Anubis entrypoint (Not Cloudflare compliant)
-{$DOMAIN_PERSONAL} {
+{$DOMAIN_PERSONAL}, *.{$DOMAIN_PERSONAL} {
 	tls {$EMAIL_PERSONAL}
 
 	reverse_proxy anubis:3000 {
@@ -25,14 +25,14 @@ www.{$DOMAIN:localhost} {
 	}
 }
 
-# Actual website entrypoint
-http://{$DOMAIN_PERSONAL}:81 {
-	route {
-		reverse_proxy 10.13.13.2:80
-	}
-}
-
 # WWW redirect
 www.{$DOMAIN_PERSONAL} {
 	redir {scheme}://{$DOMAIN_PERSONAL}{uri}
 }
+
+# Actual website entrypoint
+http://{$DOMAIN_PERSONAL}:81, http://*.{$DOMAIN_PERSONAL}:81 {
+	reverse_proxy 10.13.13.2:80
+}
+
+
