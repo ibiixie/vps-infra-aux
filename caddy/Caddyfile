@@ -16,7 +16,7 @@ www.{$DOMAIN:localhost} {
 }
 
 # Anubis entrypoint (Not Cloudflare compliant)
-{$DOMAIN_PERSONAL} {
+{$DOMAIN_PERSONAL}, secret.{$DOMAIN_PERSONAL} {
 	tls {$EMAIL_PERSONAL}
 
 	reverse_proxy anubis:3000 {
@@ -34,11 +34,3 @@ www.{$DOMAIN_PERSONAL} {
 http://{$DOMAIN_PERSONAL}:81, http://*.{$DOMAIN_PERSONAL}:81 {
 	reverse_proxy 10.13.13.2:80
 }
-
-login.{$DOMAIN_PERSONAL}, secret.{$DOMAIN_PERSONAL} {
-	tls {$EMAIL_PERSONAL}
-
-	reverse_proxy 10.13.13.2:80
-}
-
-
