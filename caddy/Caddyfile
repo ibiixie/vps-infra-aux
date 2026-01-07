@@ -36,7 +36,7 @@ ntfy.{$DOMAIN_PERSONAL} {
 		header_up X-Http-Version {http.request.proto}
 	}
 
-	@ntfy_httpget {
+	@ntfy_get {
         method GET
         path_regexp ^/([-_a-z0-9]{0,64}$|docs/|static/)
     }
