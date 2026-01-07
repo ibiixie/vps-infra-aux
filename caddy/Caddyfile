@@ -18,9 +18,24 @@ www.{$DOMAIN:localhost} {
 # Anubis entrypoint (Not Cloudflare compliant)
 {$DOMAIN_PERSONAL},
 auth.{$DOMAIN_PERSONAL},
-secret.{$DOMAIN_PERSONAL},
+secret.{$DOMAIN_PERSONAL} {
+	tls {$EMAIL_PERSONAL}
+
+	reverse_proxy anubis:3000 {
+		header_up X-Real-Ip {remote_host}
+		header_up X-Http-Version {http.request.proto}
+	}
+}
+
+# Anubis entrypoint for Ntfy with bypass for push API
 ntfy.{$DOMAIN_PERSONAL} {
 	tls {$EMAIL_PERSONAL}
+
+	reverse_proxy /* 10.13.13.2:80 {
+		header_up X-Forwarded-Proto {http.request.header.X-Forwarded-Proto}
+		header_up X-Forwarded-Host {http.request.header.X-Forwarded-Host}
+		header_up X-Http-Version {http.request.header-X-Http-Version}
+	}
 
 	reverse_proxy anubis:3000 {
 		header_up X-Real-Ip {remote_host}
