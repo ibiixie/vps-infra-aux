@@ -10,6 +10,13 @@
 	}
 }
 
+git.{$DOMAIN} {
+	reverse_proxy anubis:3000 {
+		header_up X-Real-Ip {remote_host}
+		header_up X-Http-Version {http.request.proto}
+	}
+}
+
 # WWW redirect
 www.{$DOMAIN:localhost} {
 	redir {scheme}://{$DOMAIN:localhost}{uri}
@@ -47,6 +54,14 @@ wallos.{$DOMAIN_PERSONAL} {
 		header_up X-Http-Version {http.request.header-X-Http-Version}
 	}
 
+}
+
+# Anubis target for non-personal domain
+git.{$DOMAIN} {
+	reverse_proxy anubis:3000 {
+		header_up X-Real-Ip {remote_host}
+		header_up X-Http-Version {http.request.proto}
+	}
 }
 
 # WWW redirect
