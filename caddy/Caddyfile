@@ -56,14 +56,6 @@ wallos.{$DOMAIN_PERSONAL} {
 
 }
 
-# Anubis target for non-personal domain
-git.{$DOMAIN} {
-	reverse_proxy anubis:3000 {
-		header_up X-Real-Ip {remote_host}
-		header_up X-Http-Version {http.request.proto}
-	}
-}
-
 # WWW redirect
 www.{$DOMAIN_PERSONAL} {
 	redir {scheme}://{$DOMAIN_PERSONAL}{uri}
