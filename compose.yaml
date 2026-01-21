@@ -28,7 +28,7 @@ services:
     restart: unless-stopped
     ports:
       - 222:222
-    netowkrs:
+    networks:
       - tunnel_net
       - proxy_net
 
